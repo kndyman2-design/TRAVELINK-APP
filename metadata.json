@@ -1,0 +1,6 @@
+
+{
+  "name": "Travel Quote Analyzer",
+  "description": "Extract flight, airline, and schedule information from travel quote text and display it in a professional spreadsheet format.",
+  "requestFramePermissions": []
+}
