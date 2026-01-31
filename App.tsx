@@ -129,7 +129,9 @@ const App: React.FC = () => {
                   <div className="w-4 h-12 bg-emerald-500 rounded-full shadow-xl shadow-emerald-100"></div>
                   <div>
                     <h2 className="text-3xl font-black text-slate-800 tracking-tighter uppercase leading-none">Itinerario Extraído</h2>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mt-2">{result.segments.length} VUELOS DETECTADOS</p>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mt-2">
+  {result.segments?.length ?? 0} VUELOS DETECTADOS
+</p>
                   </div>
                 </div>
               </div>
@@ -152,7 +154,9 @@ const App: React.FC = () => {
 
               <div className="flex flex-col items-center w-full mb-12">
                  <div className="w-full overflow-x-auto pb-8 flex justify-center scrollbar-hide">
-                    <FlightTable segments={result.segments} tableId={tableRefId} />
+                    {result.segments && result.segments.length > 0 && (
+  <FlightTable segments={result.segments} tableId={tableRefId} />
+)}
                  </div>
               </div>
               
