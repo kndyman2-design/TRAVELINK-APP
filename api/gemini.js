@@ -6,12 +6,8 @@ export default async function handler(req, res) {
   try {
     const { prompt } = req.body;
 
-    if (!prompt) {
-      return res.status(400).json({ error: "Prompt is required" });
-    }
-
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: {
@@ -20,21 +16,22 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           contents: [
             {
+              role: "user",
               parts: [{ text: prompt }],
             },
           ],
+          generationConfig: {
+            responseMimeType: "application/json",
+          },
         }),
       }
     );
 
     const data = await response.json();
 
-    const text =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-
-    return res.status(200).json({ text });
+    return res.status(200).json(data);
   } catch (error) {
-    console.error(error);
+    console.error("Gemini API error:", error);
     return res.status(500).json({ error: "Gemini connection error" });
   }
 }
