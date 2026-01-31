@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${process.env.GEMINI_API_KEY}`,
+          "Authorization": `Bearer ${process.env.GOOGLE_API_KEY}`,
         },
         body: JSON.stringify(req.body),
       }
@@ -22,3 +22,4 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Gemini connection error" });
   }
 }
+
