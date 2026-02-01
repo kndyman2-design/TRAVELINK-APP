@@ -1,20 +1,13 @@
+
+import { GoogleGenAI, Type } from "@google/genai";
 import { ExtractionResult } from "../types";
 
-export const extractTravelInfo = async (
-  quoteText: string
-): Promise<ExtractionResult> => {
-  const response = await fetch("/api/gemini", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      contents: [
-        {
-          role: "user",
-          parts: [
-            {
-              text: `Analiza detalladamente este itinerario de vuelo y extrae la información estructurada.
+export const extractTravelInfo = async (quoteText: string): Promise<ExtractionResult> => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  
+  const response = await ai.models.generateContent({
+    model: 'gemini-3-flash-preview',
+    contents: `Analiza detalladamente este itinerario de vuelo y extrae la información estructurada.
               
 REGLAS DE ORO PARA EL FORMATO:
 1. FECHAS: Usa estrictamente el formato "[día] de [nombre del mes en minúsculas]". Ejemplo: "01 de agosto", "09 de abril", "24 de diciembre".
