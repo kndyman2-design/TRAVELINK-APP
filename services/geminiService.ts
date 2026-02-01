@@ -3,7 +3,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { ExtractionResult } from "../types";
 
 export const extractTravelInfo = async (quoteText: string): Promise<ExtractionResult> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE.API_KEY });
+  const ai = new GoogleGenAI(process.env.GOOGLE.API_KEY as string);
   
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
