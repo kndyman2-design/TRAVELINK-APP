@@ -3,8 +3,9 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { ExtractionResult } from "../types";
 
 export const extractTravelInfo = async (quoteText: string): Promise<ExtractionResult> => {
-  const ai = new GoogleGenAI(import.meta.env.VITE_GEMINI_API_KEY);
-  
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY || "";
+
+const ai = new GoogleGenAI({ apiKey });
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: `Analiza detalladamente este itinerario de vuelo y extrae la información estructurada.
